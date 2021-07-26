@@ -1,5 +1,7 @@
 {
   "name": "GeolocalizadorMovil",
-  "integrations": {},
+  "integrations": {
+    "cordova": {}
+  },
   "type": "angular"
 }
