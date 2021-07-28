@@ -13,6 +13,7 @@ export class HomePage {
   latitud: number
   longitud: number
   codigo_gps: string
+  contador = 1;
 
   constructor(public geolocation: Geolocation, public http: HttpClient)
   {}
@@ -24,7 +25,6 @@ export class HomePage {
 
   getGeolocation()
   {
-    document.getElementById("codigo-gps").innerHTML = this.codigo_gps;
     this.geolocation.getCurrentPosition().then((geoposition: Geoposition) => {
       this.latitud = geoposition.coords.latitude;
       this.longitud = geoposition.coords.longitude;
@@ -51,6 +51,29 @@ export class HomePage {
           document.getElementById("error-ocurrido").innerHTML = "Error al enviar las coordenadas";  
         }
       }
+    }else
+    {
+      document.getElementById("error-ocurrido").innerHTML = "Ingrese codigo del GPS";
+    }
+  }
+
+  emitirCoordenadas()
+  {
+    if(this.codigo_gps != undefined)
+    {
+      setInterval(() => {
+        this.getGeolocation()
+        try 
+          {
+            this.postEnviarCoordenadas(this.codigo_gps, this.latitud, this.longitud).subscribe((respuesta: any) => {
+              document.getElementById("mensaje-envio").innerHTML = `${this.contador} - Enviando coordenadas`;
+              this.contador = this.contador + 1;
+            })
+          } catch (error) 
+          {
+            document.getElementById("error-ocurrido").innerHTML = "Error al enviar las coordenadas";  
+          }
+      }, 4000)
     }else
     {
       document.getElementById("error-ocurrido").innerHTML = "Ingrese codigo del GPS";

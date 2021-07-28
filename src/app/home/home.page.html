@@ -11,20 +11,18 @@
 
     <strong>Ingrese debajo el Codigo del GPS</strong>
 
-    <ion-input [(ngModel)]="codigo_gps" placeholder="Ejm: gps001"></ion-input>
+    <ion-input id="codigo" [(ngModel)]="codigo_gps" placeholder="Ejm: gps001"></ion-input><br>
 
     <div>
       <ion-button (click)="getGeolocation()">Obtener Coordenadas</ion-button>
     </div><br>
 
     <div>
-      <ion-button (click)="enviarCoordenadasTemporizado()">Enviar coordenadas</ion-button>
-    </div>
-    
-    <div id="codigo-gps">
+      <ion-button (click)="emitirCoordenadas()">Enviar coordenadas</ion-button>
     </div><br>
         
     <div>
+      {{codigo_gps}}<br><br>
       Coordenadas obtenidas <br><br>
       Latitud: {{latitud}} <br>
       Longitud: {{longitud}}
